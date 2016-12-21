@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'src\vidtrim\SourceFileChooserDialog_UI.ui'
+#
+# Created: Wed Dec 21 13:40:25 2016
+#      by: pyside-uic 0.2.15 running on PySide 1.2.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PySide import QtCore, QtGui
+
+class Ui_SourceFileChooserDialog_UI(object):
+    def setupUi(self, SourceFileChooserDialog_UI):
+        SourceFileChooserDialog_UI.setObjectName("SourceFileChooserDialog_UI")
+        SourceFileChooserDialog_UI.resize(666, 439)
+        self.buttonBox = QtGui.QDialogButtonBox(SourceFileChooserDialog_UI)
+        self.buttonBox.setGeometry(QtCore.QRect(230, 400, 341, 32))
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
+        self.source_files_tbl = QtGui.QTableWidget(SourceFileChooserDialog_UI)
+        self.source_files_tbl.setGeometry(QtCore.QRect(50, 100, 551, 271))
+        self.source_files_tbl.setObjectName("source_files_tbl")
+        self.source_files_tbl.setColumnCount(0)
+        self.source_files_tbl.setRowCount(0)
+        self.label = QtGui.QLabel(SourceFileChooserDialog_UI)
+        self.label.setGeometry(QtCore.QRect(50, 20, 221, 16))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setWeight(75)
+        font.setBold(True)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.label_2 = QtGui.QLabel(SourceFileChooserDialog_UI)
+        self.label_2.setGeometry(QtCore.QRect(50, 50, 91, 16))
+        self.label_2.setObjectName("label_2")
+        self.browse_btn = QtGui.QPushButton(SourceFileChooserDialog_UI)
+        self.browse_btn.setGeometry(QtCore.QRect(520, 50, 75, 23))
+        self.browse_btn.setObjectName("browse_btn")
+        self.source_dir_input = QtGui.QLineEdit(SourceFileChooserDialog_UI)
+        self.source_dir_input.setGeometry(QtCore.QRect(180, 50, 321, 20))
+        self.source_dir_input.setObjectName("source_dir_input")
+
+        self.retranslateUi(SourceFileChooserDialog_UI)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), SourceFileChooserDialog_UI.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), SourceFileChooserDialog_UI.reject)
+        QtCore.QMetaObject.connectSlotsByName(SourceFileChooserDialog_UI)
+
+    def retranslateUi(self, SourceFileChooserDialog_UI):
+        SourceFileChooserDialog_UI.setWindowTitle(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Source Video Files", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Source Directory", None, QtGui.QApplication.UnicodeUTF8))
+        self.browse_btn.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Browse", None, QtGui.QApplication.UnicodeUTF8))
+

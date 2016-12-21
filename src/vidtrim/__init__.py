@@ -1,0 +1,1 @@
+from VideoTrimMainWindow import VideoTrimMainWindow
