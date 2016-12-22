@@ -38,8 +38,8 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
     
     
     @property
-    def path(self):
-        return self._path[:]
+    def sources(self):
+        return self._files[:]
 
 
     def browse_for_source_folder(self):
