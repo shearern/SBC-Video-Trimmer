@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src\vidtrim\SourceFileChooserDialog_UI.ui'
 #
-# Created: Wed Dec 21 13:40:25 2016
+# Created: Wed Dec 21 16:57:15 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_SourceFileChooserDialog_UI(object):
     def setupUi(self, SourceFileChooserDialog_UI):
         SourceFileChooserDialog_UI.setObjectName("SourceFileChooserDialog_UI")
-        SourceFileChooserDialog_UI.resize(666, 439)
+        SourceFileChooserDialog_UI.resize(653, 439)
         self.buttonBox = QtGui.QDialogButtonBox(SourceFileChooserDialog_UI)
         self.buttonBox.setGeometry(QtCore.QRect(230, 400, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -40,6 +40,12 @@ class Ui_SourceFileChooserDialog_UI(object):
         self.source_dir_input = QtGui.QLineEdit(SourceFileChooserDialog_UI)
         self.source_dir_input.setGeometry(QtCore.QRect(180, 50, 321, 20))
         self.source_dir_input.setObjectName("source_dir_input")
+        self.pushButton = QtGui.QPushButton(SourceFileChooserDialog_UI)
+        self.pushButton.setGeometry(QtCore.QRect(610, 100, 31, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtGui.QPushButton(SourceFileChooserDialog_UI)
+        self.pushButton_2.setGeometry(QtCore.QRect(610, 130, 31, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(SourceFileChooserDialog_UI)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), SourceFileChooserDialog_UI.accept)
@@ -51,4 +57,6 @@ class Ui_SourceFileChooserDialog_UI(object):
         self.label.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Source Video Files", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Source Directory", None, QtGui.QApplication.UnicodeUTF8))
         self.browse_btn.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Browse", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Up", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("SourceFileChooserDialog_UI", "Dwn", None, QtGui.QApplication.UnicodeUTF8))
 
