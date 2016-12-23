@@ -9,6 +9,8 @@ ctypes.pythonapi.PyCObject_AsVoidPtr.argtypes = [ctypes.py_object]
 from PySide.QtCore import *
 from PySide.QtGui import *
 
+from .VideoFile import VideoFile
+
 from .SourceFileChooserDialog import SourceFileChooserDialog
 
 from .VideoTrimMainWindow_UI import Ui_VideoTrimMainWindow_UI
@@ -37,6 +39,13 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
     def choose_source_files(self):
         self.source_chooser.exec_()
 
+        # Debug
+        files = [VideoFile(src.path) for src in self.source_chooser.sources]
+        for file in files:
+            file.data
+        for file in files:
+            print file.filename, file.duration.timecode
+
         # Setup VLC to play video list
         # http://stackoverflow.com/questions/38650544/media-list-in-python-vlc
         # self._vlc_player = self._vlc.media_list_player_new()
@@ -62,10 +71,6 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
             self._vlc_player.set_hwnd(hwnd)
         except AttributeError:
             pass
-
-
-
-
 
 
     def play_pause(self):

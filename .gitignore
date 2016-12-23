@@ -94,3 +94,8 @@ src/vidtrim/qt_assets_rc.py
 src/ffmpeg.exe
 src/ffplay.exe
 src/ffprobe.exe
+.idea/
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+.sconsign.dblite
