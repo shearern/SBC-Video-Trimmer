@@ -26,7 +26,12 @@ class VideoTS(object):
     @property
     def timecode(self):
         '''Time in format: HH:MM:SS.MMMM'''
-        hours = self.__sec // (60 * 60)
-        minutes = (self.__sec // 60) % 60
-        seconds = self.__sec % 60
-        return "%02d:%02d:%02.2f" % (hours, minutes, seconds)
+
+        # Round to the nearest hundredth of a second
+        total_sec = round(self.__sec, 2)
+
+        hours = total_sec // (60 * 60)
+        minutes = (total_sec // 60) % 60
+        seconds = total_sec % 60
+        frames = (seconds % 1) * self.__framerate
+        return "%02d:%02d:%02d.%02d" % (hours, minutes, seconds, frames)
