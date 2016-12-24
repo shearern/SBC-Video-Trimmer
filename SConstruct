@@ -54,7 +54,7 @@ rc_asset_files = list(list_files_in('src', ('.png', '.jpg', '.gif',)))
 print "Qt RC Asset Files:"
 for rc_asset_file in rc_asset_files:
     print " -", rc_asset_file
-built_source_files.append(env.QtResources('src/vidtrim/qt_assets_rc.py', ['src/vidtrim/qt_assets.qrc', ] + rc_asset_files))
+built_source_files.append(env.QtResources('src/vidtrim/ui/qt_assets_rc.py', ['src/vidtrim/ui/qt_assets.qrc', ] + rc_asset_files))
 
 # Alias for source files
 env.Alias('built_source_files', built_source_files)

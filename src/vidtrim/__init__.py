@@ -1,1 +1,1 @@
-from VideoTrimMainWindow import VideoTrimMainWindow
+from vidtrim.ui.VideoTrimMainWindow import VideoTrimMainWindow

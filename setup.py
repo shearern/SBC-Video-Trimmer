@@ -18,6 +18,8 @@ setup(
         ],
     packages=[
         'vidtrim',
+        'vidtrim.ui',
+        'vidtrim.ffmpeg',
         ],
 
     # For py2exe & PySide (see http://www.py2exe.org/index.cgi/Tutorial)

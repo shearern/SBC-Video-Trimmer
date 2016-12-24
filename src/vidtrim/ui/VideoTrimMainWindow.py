@@ -1,15 +1,13 @@
+import ctypes
 
 import vlc
-
-# See HWID conversion in choose_source_files()
-import ctypes
 ctypes.pythonapi.PyCObject_AsVoidPtr.restype = ctypes.c_void_p
 ctypes.pythonapi.PyCObject_AsVoidPtr.argtypes = [ctypes.py_object]
 
 from PySide.QtCore import *
 from PySide.QtGui import *
 
-from .VideoFile import VideoFile
+from ..VideoFile import VideoFile
 
 from .SourceFileChooserDialog import SourceFileChooserDialog
 
@@ -28,12 +26,13 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
         self._vlc_playlist = None
         self._vlc_event_mgr = None
 
+
         # Connect signals/slots
         self.play_btn.clicked.connect(self.play_pause)
         self.pushButton_5.clicked.connect(self.jump)
 
         # Begin
-        self.choose_source_files()
+        QTimer.singleShot(200, self.choose_source_files)
 
 
     def choose_source_files(self):
