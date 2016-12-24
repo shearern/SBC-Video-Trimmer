@@ -1,15 +1,16 @@
 import os
 
-from .ffprobe import get_file_data
+from vidtrim.ffmpeg.ffprobe import get_file_data
 from .VideoTS import VideoTS
 
+
 class VideoFile(object):
-    '''A vido file'''
+    '''A video file'''
 
 
-    def __init__(self, path):
+    def __init__(self, path, data):
         self.__path = path
-        self.__data = None
+        self.__data = data
 
 
     @property
@@ -25,8 +26,6 @@ class VideoFile(object):
     @property
     def data(self):
         '''Data about this file'''
-        if self.__data is None:
-            self.__data = get_file_data(self.path)
         return self.__data
 
 
@@ -45,3 +44,11 @@ class VideoFile(object):
         return VideoTS(
             framerate = self.framerate,
             time_sec = self.data.duration_sec)
+
+
+def load_video_file(path):
+    '''Use ffprobe to get information about a video file'''
+    data = get_file_data(path)
+    return VideoFile(path, data)
+
+

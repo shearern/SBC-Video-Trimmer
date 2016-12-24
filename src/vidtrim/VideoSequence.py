@@ -8,3 +8,4 @@ class VideoSequence(object):
 
 
     def add(self, video):
+        self.__videos.append(video)
