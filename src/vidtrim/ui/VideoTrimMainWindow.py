@@ -99,6 +99,7 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
     def loader_finished(self):
         self.statusbar.showMessage("TODO: Loading finished")
         self._vid_loader = None
+        self.project_length_timecode.setText(self.vid_sequence.duration.timecode)
 
 
     def play_pause(self):

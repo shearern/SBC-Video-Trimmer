@@ -174,7 +174,7 @@
      <string>00:00:00.00</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="project_length_timecode">
     <property name="geometry">
      <rect>
       <x>705</x>

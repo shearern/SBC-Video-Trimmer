@@ -1,7 +1,7 @@
 import os
 
 from vidtrim.ffmpeg.ffprobe import get_file_data
-from .VideoTS import VideoTS
+from VideoPos import VideoPos
 
 
 class VideoFile(object):
@@ -41,9 +41,7 @@ class VideoFile(object):
 
         :return: VideoTS
         '''
-        return VideoTS(
-            framerate = self.framerate,
-            time_sec = self.data.duration_sec)
+        return VideoPos(self, sec = self.data.duration_sec)
 
 
 def load_video_file(path):

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src\vidtrim\ui\VideoTrimMainWindow_UI.ui'
 #
-# Created: Fri Dec 23 23:50:20 2016
+# Created: Sat Dec 24 01:43:25 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -57,9 +57,9 @@ class Ui_VideoTrimMainWindow_UI(object):
         self.label_3 = QtGui.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(340, 80, 81, 16))
         self.label_3.setObjectName("label_3")
-        self.label_4 = QtGui.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(705, 80, 101, 20))
-        self.label_4.setObjectName("label_4")
+        self.project_length_timecode = QtGui.QLabel(self.centralwidget)
+        self.project_length_timecode.setGeometry(QtCore.QRect(705, 80, 101, 20))
+        self.project_length_timecode.setObjectName("project_length_timecode")
         VideoTrimMainWindow_UI.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(VideoTrimMainWindow_UI)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 839, 21))
@@ -92,7 +92,7 @@ class Ui_VideoTrimMainWindow_UI(object):
         self.label.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Source Filename", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
+        self.project_length_timecode.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSource_Files.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Source Files", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCommmit.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Commit", None, QtGui.QApplication.UnicodeUTF8))
