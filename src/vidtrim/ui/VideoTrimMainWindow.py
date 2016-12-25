@@ -166,16 +166,15 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
         # Video Pos
         cur_video = self.vid_sequence[self.vid_sequence_idx]
-        vlc_pos_ms = self._vlc_player.get_time()
-        if vlc_pos_ms == -1:
-            return None
-        cur_video_pos = VideoPos(cur_video, ms=vlc_pos_ms)
+        vlc_pos = self._vlc_player.get_position()
+        vlc_pos_sec = cur_video.duration.seconds * vlc_pos
+        cur_video_pos = VideoPos(cur_video, sec=vlc_pos_sec)
 
         # Sequence Pos
-        seq_pos_ms = sum([v.duration for v in self.vid_sequence.videos[:self.vid_sequence_idx]])
-        seq_pos_ms += cur_video_pos.ms
+        seq_pos_sec = sum([v.duration.seconds for v in self.vid_sequence.videos[:self.vid_sequence_idx]])
+        seq_pos_sec += cur_video_pos.seconds
 
-        return SequencePos(self.vid_sequence, ms=seq_pos_ms)
+        return SequencePos(self.vid_sequence, sec=seq_pos_sec)
 
 
     def _video_finished(self, arg):
