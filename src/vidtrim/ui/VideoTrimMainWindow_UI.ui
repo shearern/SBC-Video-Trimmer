@@ -135,7 +135,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="current_video_lbl">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -148,7 +148,7 @@
      <string>Source Filename</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="video_position_lbl">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -161,7 +161,7 @@
      <string>00:00:00.00</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="seq_pos_lbl">
     <property name="geometry">
      <rect>
       <x>340</x>

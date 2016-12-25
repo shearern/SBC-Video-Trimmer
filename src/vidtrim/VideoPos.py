@@ -15,3 +15,7 @@ class VideoPos(TimePos):
             raise Exception("Can't add %s to %s" % (
                 other.__class__.__name__,
                 self.__class__.__name__))
+
+
+    def __str__(self):
+        return "%s of %s" % (self.timecode, self.__video.filename)

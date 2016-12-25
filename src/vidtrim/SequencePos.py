@@ -16,3 +16,18 @@ class SequencePos(TimePos):
             raise Exception("Can't add %s to %s" % (
                 other.__class__.__name__,
                 self.__class__.__name__))
+
+
+    @property
+    def video_pos(self):
+        '''Position in the video'''
+
+        offset = self.seconds
+
+        # TODO: Cold probably speed this up
+        # Find which video we're in
+        for video in self.__seq.videos:
+            if video.duration.seconds < offset:
+                offset -= video.duration.seconds
+            else:
+                return VideoPos(video, sec=offset)

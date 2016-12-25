@@ -7,6 +7,8 @@ ctypes.pythonapi.PyCObject_AsVoidPtr.argtypes = [ctypes.py_object]
 from PySide.QtCore import *
 from PySide.QtGui import *
 
+from ..VideoPos import VideoPos
+from ..SequencePos import SequencePos
 from ..VideoFile import VideoFile
 from ..VideoSequence import VideoSequence
 from .SourceFileChooserDialog import SourceFileChooserDialog
@@ -23,6 +25,7 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
         # Init Vars
         self.source_chooser = SourceFileChooserDialog(parent=self)
         self.vid_sequence = None
+        self.vid_sequence_idx = None
         self._vlc = vlc.Instance()
         self._vlc_player = None
         self._vlc_playlist = None
@@ -37,6 +40,11 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
         # Begin
         QTimer.singleShot(200, self.choose_source_files)
+
+        self.playback_status_update_timer = QTimer(self)
+        self.connect(self.playback_status_update_timer, SIGNAL("timeout()"),
+                     self.update_playback_status)
+        self.playback_status_update_timer.start(0.25 * 1000)    # 1000 msec = 1 second
 
 
     def _init_vlc(self):
@@ -59,6 +67,33 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
             self._vlc_player.set_hwnd(hwnd)
         except AttributeError:
             pass
+
+
+
+    def update_playback_status(self):
+        playing = False
+        if self._vlc_player is not None:
+            playing = self._vlc_player.is_playing()
+
+        if playing:
+            self.play_btn.setText('Pause')
+
+            seq_pos = self.play_pos
+            if seq_pos is not None:
+                self.seq_pos_lbl.setText(seq_pos.timecode)
+
+                video_pos = seq_pos.video_pos
+                self.video_position_lbl.setText(video_pos.timecode)
+
+        else:
+            self.play_btn.setText('Play')
+
+
+
+        if self.vid_sequence is not None and self.vid_sequence_idx is not None:
+            cur_video = self.vid_sequence[self.vid_sequence_idx]
+            self.current_video_lbl.setText(cur_video.filename)
+
 
 
 
@@ -99,6 +134,7 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
     def loader_finished(self):
         self.statusbar.showMessage("TODO: Loading finished")
         self._vid_loader = None
+        self.vid_sequence_idx = 0
         self.project_length_timecode.setText(self.vid_sequence.duration.timecode)
 
 
@@ -116,6 +152,30 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
     def pause(self):
         self._vlc_player.pause()
         self.play_btn.setText('Play')
+
+
+    @property
+    def play_pos(self):
+        '''Playhead'''
+        if self.vid_sequence is None:
+            return None
+        if self.vid_sequence_idx is None:
+            return None
+        if self._vlc_player is None:
+            return None
+
+        # Video Pos
+        cur_video = self.vid_sequence[self.vid_sequence_idx]
+        vlc_pos_ms = self._vlc_player.get_time()
+        if vlc_pos_ms == -1:
+            return None
+        cur_video_pos = VideoPos(cur_video, ms=vlc_pos_ms)
+
+        # Sequence Pos
+        seq_pos_ms = sum([v.duration for v in self.vid_sequence.videos[:self.vid_sequence_idx]])
+        seq_pos_ms += cur_video_pos.ms
+
+        return SequencePos(self.vid_sequence, ms=seq_pos_ms)
 
 
     def _video_finished(self, arg):

@@ -22,6 +22,9 @@ class VideoFile(object):
     def filename(self):
         return os.path.basename(self.path)
 
+    def __str__(self):
+        return self.filename
+
 
     @property
     def data(self):

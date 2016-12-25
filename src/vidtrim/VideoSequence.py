@@ -11,6 +11,11 @@ class VideoSequence(object):
         self.__videos.append(video)
 
 
+    @property
+    def videos(self):
+        return self.__videos[:]
+
+
 
     @property
     def duration(self):
@@ -20,3 +25,7 @@ class VideoSequence(object):
         for video in self.__videos:
             dur += video.duration
         return dur
+
+
+    def __getitem__(self, i):
+        return self.__videos[i]

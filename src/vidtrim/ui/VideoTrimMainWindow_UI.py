@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src\vidtrim\ui\VideoTrimMainWindow_UI.ui'
 #
-# Created: Sat Dec 24 01:43:25 2016
+# Created: Sun Dec 25 01:02:13 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,15 +48,15 @@ class Ui_VideoTrimMainWindow_UI(object):
         self.widget = QtGui.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(10, 100, 811, 21))
         self.widget.setObjectName("widget")
-        self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(90, 130, 311, 16))
-        self.label.setObjectName("label")
-        self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(20, 130, 111, 16))
-        self.label_2.setObjectName("label_2")
-        self.label_3 = QtGui.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(340, 80, 81, 16))
-        self.label_3.setObjectName("label_3")
+        self.current_video_lbl = QtGui.QLabel(self.centralwidget)
+        self.current_video_lbl.setGeometry(QtCore.QRect(90, 130, 311, 16))
+        self.current_video_lbl.setObjectName("current_video_lbl")
+        self.video_position_lbl = QtGui.QLabel(self.centralwidget)
+        self.video_position_lbl.setGeometry(QtCore.QRect(20, 130, 111, 16))
+        self.video_position_lbl.setObjectName("video_position_lbl")
+        self.seq_pos_lbl = QtGui.QLabel(self.centralwidget)
+        self.seq_pos_lbl.setGeometry(QtCore.QRect(340, 80, 81, 16))
+        self.seq_pos_lbl.setObjectName("seq_pos_lbl")
         self.project_length_timecode = QtGui.QLabel(self.centralwidget)
         self.project_length_timecode.setGeometry(QtCore.QRect(705, 80, 101, 20))
         self.project_length_timecode.setObjectName("project_length_timecode")
@@ -89,9 +89,9 @@ class Ui_VideoTrimMainWindow_UI(object):
         self.pushButton_4.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Back 5", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_5.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Goto In Point", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_6.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Goto Out Point", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Source Filename", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
+        self.current_video_lbl.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Source Filename", None, QtGui.QApplication.UnicodeUTF8))
+        self.video_position_lbl.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
+        self.seq_pos_lbl.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
         self.project_length_timecode.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "00:00:00.00", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSource_Files.setText(QtGui.QApplication.translate("VideoTrimMainWindow_UI", "Source Files", None, QtGui.QApplication.UnicodeUTF8))
