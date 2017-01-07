@@ -26,7 +26,7 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
         self.source_files_tbl.cellClicked.connect(self._file_row_clicked)
 
         # Initialize Variables
-        self.source_dir_input.setText(self.settings.value('last_source_dir_path'))
+        self.path = self.settings.value('last_source_dir_path')
         self._files = list()
 
         # Begin
@@ -35,11 +35,14 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
     @property
     def path(self):
         return self.source_dir_input.text()
+    @path.setter
+    def path(self, value):
+        self.source_dir_input.setText(value)
     
     
     @property
     def sources(self):
-        return self._files[:]
+        return [f for f in self._files[:] if f.selected]
 
 
     def browse_for_source_folder(self):
@@ -50,7 +53,7 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
             dir=self.path)
 
         # Store value
-        self.source_dir_input.setText(path)
+        self.path = path
 
         # Save as default for next run
         QSettings().setValue('last_source_dir_path', path)
@@ -60,6 +63,10 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
 
 
     def refresh_source_file_list(self):
+
+        # Check that current path exists
+        if not os.path.exists(self.path):
+            self.path = os.path.expanduser('~')
 
         # Find files
         try:

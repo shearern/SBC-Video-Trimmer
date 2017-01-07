@@ -18,6 +18,9 @@ from .VideoTrimMainWindow_UI import Ui_VideoTrimMainWindow_UI
 
 class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
+    current_video_file_finished = Signal()
+    current_video_file_changed = Signal()
+
     def __init__(self, parent=None):
         super(VideoTrimMainWindow, self).__init__(parent=parent)
         self.setupUi(self)
@@ -37,6 +40,7 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
         # Connect signals/slots
         self.play_btn.clicked.connect(self.play_pause)
         self.pushButton_5.clicked.connect(self.jump)
+        self.current_video_file_finished.connect(self._start_next_video_in_seq)
 
         # Begin
         QTimer.singleShot(200, self.choose_source_files)
@@ -51,12 +55,11 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
         # Init player
         self._vlc_player = self._vlc.media_player_new()
-        self._vlc_player.set_media(self._vlc.media_new(self.source_chooser.sources[0].path))
 
         # https://forum.videolan.org/viewtopic.php?t=109408
         self._vlc_event_mgr = self._vlc_player.event_manager()
         event=vlc.EventType()
-        self._vlc_event_mgr.event_attach(event.MediaPlayerEndReached, self._video_finished)
+        self._vlc_event_mgr.event_attach(event.MediaPlayerEndReached, self._video_finished_vlc_event)
 
         # https://forum.videolan.org/viewtopic.php?t=72360
         hwnd = self.video_widget.winId()
@@ -87,8 +90,6 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
         else:
             self.play_btn.setText('Play')
-
-
 
         if self.vid_sequence is not None and self.vid_sequence_idx is not None:
             cur_video = self.vid_sequence[self.vid_sequence_idx]
@@ -132,10 +133,17 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
 
 
     def loader_finished(self):
-        self.statusbar.showMessage("TODO: Loading finished")
+        self.statusbar.showMessage("Ready to play")
         self._vid_loader = None
-        self.vid_sequence_idx = 0
         self.project_length_timecode.setText(self.vid_sequence.duration.timecode)
+        self.restart_video()
+
+
+    def restart_video(self):
+        if len(self.source_chooser.sources) > 0:
+            self.vid_sequence_idx = 0
+            self._vlc_player.set_media(self._vlc.media_new(self.source_chooser.sources[0].path))
+
 
 
     def play_pause(self):
@@ -177,9 +185,21 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
         return SequencePos(self.vid_sequence, sec=seq_pos_sec)
 
 
-    def _video_finished(self, arg):
-        print 'Playback Finished'
-        print str(arg)
+    def _video_finished_vlc_event(self, arg):
+        print "HIT1"
+        self.current_video_file_finished.emit()
+
+
+    def _start_next_video_in_seq(self):
+        print "HIT2"
+        # Load next video in sequence
+        if len(self.source_chooser.sources) >= self.vid_sequence_idx + 2:
+            self.vid_sequence_idx += 1
+            video = self._vlc.media_new(self.source_chooser.sources[self.vid_sequence_idx].path)
+            self._vlc_player.set_media(video)
+            self._vlc_player.play()
+            self.current_video_file_changed.emit()
+
 
 
     def jump(self):
