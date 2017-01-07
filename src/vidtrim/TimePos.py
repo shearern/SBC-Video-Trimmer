@@ -17,6 +17,13 @@ class TimePos(object):
             self.__sec = float(ms) / 1000.0
 
 
+    def __str__(self):
+        return self.timecode
+
+    def __repr__(self):
+        return "TimePos(sec=%.02f)" % (self.sec)
+
+
     @property
     def seconds(self):
         '''Number of miliseconds'''
@@ -45,7 +52,7 @@ class TimePos(object):
 
     def __add__(self, other):
         try:
-            return TimePos(time_sec=self.seconds + other.seconds)
+            return TimePos(sec=self.seconds + other.seconds)
         except AttributeError:
             raise Exception("Can't add %s to %s" % (
                 other.__class__.__name__,
