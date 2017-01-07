@@ -9,6 +9,8 @@ gflags.DEFINE_string(
     help = "Path to ffprobe program",
     default = None)
 
+FNULL = open(os.devnull, 'w')
+
 
 def exec_ffprobe(*cmd):
 
@@ -31,7 +33,7 @@ def exec_ffprobe(*cmd):
     cmd = [executable, ] + list(cmd)
 
     # Execute
-    return subprocess.check_output(cmd, stdin=None)
+    return subprocess.check_output(cmd, stdin=None, stderr=FNULL)
 
 
 class FFProbeData(object):
