@@ -71,7 +71,7 @@ class SourceFileChooserDialog(QDialog, Ui_SourceFileChooserDialog_UI):
         # Find files
         try:
             self._files = list()
-            for filename in os.listdir(self.path):
+            for filename in sorted(os.listdir(self.path)):
                 try:
                     ext = os.path.splitext(filename)[1]
                     if ext.lower() in ('.avi', '.mp4'):

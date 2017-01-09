@@ -5,6 +5,8 @@ from ..TimePos import TimePos
 
 class VideoTimelineWidget(QtGui.QWidget):
 
+    timeline_clicked = QtCore.Signal(float) # Number of seconds into sequence
+
     def __init__(self, parent=None):
         super(VideoTimelineWidget, self).__init__(parent=parent)
 
@@ -96,5 +98,15 @@ class VideoTimelineWidget(QtGui.QWidget):
         self.update()
 
 
-    def drawWidget(self, qp):
-        print "DRAW"
+    def mousePressEvent(self, evnt):
+        if self.__sequence is not None:
+            x = evnt.pos().x()
+            max_x = self.size().width() - 1
+            pct = float(x) / float(max_x)
+            sec = self.__sequence.duration.seconds * pct
+            self.timeline_clicked.emit(sec)
+
+
+
+
+

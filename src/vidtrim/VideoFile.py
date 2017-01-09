@@ -45,6 +45,9 @@ class VideoFile(object):
         :return: VideoTS
         '''
         return VideoPos(self, sec = self.data.duration_sec)
+    @property
+    def dur(self):
+        return self.duration
 
 
 def load_video_file(path):

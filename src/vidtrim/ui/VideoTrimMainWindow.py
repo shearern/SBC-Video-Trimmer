@@ -49,6 +49,7 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
         self.play_btn.clicked.connect(self.play_pause)
         self.pushButton_5.clicked.connect(self.jump)
         self.current_video_file_finished.connect(self._start_next_video_in_seq)
+        self.timeline.timeline_clicked.connect(self.handle_timeline_click)
 
         # Begin
         QTimer.singleShot(200, self.choose_source_files)
@@ -200,11 +201,44 @@ class VideoTrimMainWindow(QMainWindow, Ui_VideoTrimMainWindow_UI):
     def _start_next_video_in_seq(self):
         # Load next video in sequence
         if len(self.source_chooser.sources) >= self.vid_sequence_idx + 2:
-            self.vid_sequence_idx += 1
-            video = self._vlc.media_new(self.source_chooser.sources[self.vid_sequence_idx].path)
-            self._vlc_player.set_media(video)
+            self._load_video_at_index_to_vlc(self.vid_sequence_idx + 1)
             self._vlc_player.play()
-            self.current_video_file_changed.emit()
+
+
+    def _load_video_at_index_to_vlc(self, idx):
+        '''
+        Start playing the video at the given index in the sequence
+
+        :param idx: Index within sequence
+        '''
+        # Sanity check
+        if self.vid_sequence is not None and idx >= 0 and idx < len(self.vid_sequence):
+            if idx != self.vid_sequence_idx:
+                self.vid_sequence_idx = idx
+                video = self._vlc.media_new(self.source_chooser.sources[self.vid_sequence_idx].path)
+                self._vlc_player.set_media(video)
+                self.current_video_file_changed.emit()
+
+
+    def handle_timeline_click(self, sec):
+        '''
+        React to user clicking on timeline to scrub video
+
+        :param sec: Number of seconds into sequence
+        '''
+        seq_pos = SequencePos(self.vid_sequence, sec=sec)
+        video_index, video_pos = self.vid_sequence.calc_video_pos(seq_pos)
+
+        # Change playing video if needed
+        if self.vid_sequence_idx != video_index:
+            self._load_video_at_index_to_vlc(video_index)
+
+        self._vlc_player.play()
+
+        # Seek to pos in video
+        video = self.vid_sequence[self.vid_sequence_idx]
+        vlc_pos = float(video_pos.seconds) / float(video.duration.seconds)
+        self._vlc_player.set_position(vlc_pos)
 
 
 

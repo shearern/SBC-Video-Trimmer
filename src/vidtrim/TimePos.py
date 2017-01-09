@@ -26,8 +26,11 @@ class TimePos(object):
 
     @property
     def seconds(self):
-        '''Number of miliseconds'''
+        '''Number of seconds'''
         return self.__sec
+    @property
+    def sec(self):
+        return self.seconds
 
 
     @property
@@ -54,6 +57,48 @@ class TimePos(object):
         try:
             return TimePos(sec=self.seconds + other.seconds)
         except AttributeError:
-            raise Exception("Can't add %s to %s" % (
+            raise TypeError("Can't add %s to %s" % (
                 other.__class__.__name__,
                 self.__class__.__name__))
+
+
+    def __lt__(self, other):
+        try:
+            return self.seconds < other.seconds
+        except AttributeError:
+            raise TypeError("Can't compare %s and %s" % (
+                other.__class__.__name__,
+                self.__class__.__name__))
+
+    def __le__(self, other):
+        return self < other or self == other
+
+
+    def __gt__(self, other):
+        try:
+            return self.seconds > other.seconds
+        except AttributeError:
+            raise TypeError("Can't compare %s and %s" % (
+                other.__class__.__name__,
+                self.__class__.__name__))
+
+    def __ge__(self, other):
+        return self > other or self == other
+
+
+    FLOAT_COMPARE_TOLERANCE = 0.0001
+
+    def __eq__(self, other):
+        try:
+            if other.seconds > self.seconds - self.FLOAT_COMPARE_TOLERANCE:
+                if other.seconds < self.seconds + self.FLOAT_COMPARE_TOLERANCE:
+                    return True
+            return False
+        except AttributeError:
+            raise TypeError("Can't compare %s and %s" % (
+                other.__class__.__name__,
+                self.__class__.__name__))
+
+
+    def __ne__(self, other):
+        return not self == other
